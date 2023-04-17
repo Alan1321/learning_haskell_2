@@ -35,6 +35,8 @@ showPixel (a,b,c) = show a ++ " " ++ show b ++ " " ++ show c ++ "\n"
 greyScale :: Pixel -> Pixel
 greyScale (r, g, b) = ((r+g+b) `div` 3, (r+g+b) `div` 3, (r+g+b) `div` 3)
 
+invert :: Pixel -> Pixel
+invert (r,g,b) = (255-r, 255-g, 255-b)
 
 -- --converting list of list of tuples to a single list
 -- output :: [(Int, Int, Int)] -> 
@@ -86,6 +88,7 @@ main = do
     -- print h_flip
 
     let chunks = chunksOf 720 pixels
+    --print pixels
 
     -- --horizontal flip
     -- let h_flip = map reverse chunks
@@ -103,15 +106,17 @@ main = do
     -- let v_ff = start_2 ++ v_final_string
     -- writeFile "result/vertical_cake.ppm" v_ff
     
-    --greyScale
-    let grey = map greyScale pixels
-    --print pixels
-    --print grey
+    -- --greyScale
+    -- let grey = map greyScale pixels
+    -- let g_ss = map showPixel grey
+    -- let g_final_string = concat g_ss
+    -- let g_ff = start_2 ++ g_final_string
+    -- writeFile "result/grey_cake.ppm" g_ff
 
-    --let g_cc = concat grey
-    let g_ss = map showPixel grey
-    let g_final_string = concat g_ss
-    let g_ff = start_2 ++ g_final_string
-    --print g_ff
-    writeFile "result/grey_cake.ppm" g_ff
+    --invert colors
+    let inverted = map invert pixels
+    let i_ss = map showPixel inverted
+    let i_final_string = concat i_ss
+    let i_ff = start_2 ++ i_final_string
+    writeFile "result/invert_cake.ppm" i_ff
 
