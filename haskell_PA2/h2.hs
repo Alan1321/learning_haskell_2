@@ -32,6 +32,10 @@ vertical_flip = reverse
 showPixel :: Pixel -> String
 showPixel (a,b,c) = show a ++ " " ++ show b ++ " " ++ show c ++ "\n"
 
+greyScale :: Pixel -> Pixel
+greyScale (r, g, b) = ((r+g+b) `div` 3, (r+g+b) `div` 3, (r+g+b) `div` 3)
+
+
 -- --converting list of list of tuples to a single list
 -- output :: [(Int, Int, Int)] -> 
 -- output = concatMap (toList . fmap (\(r,g,b) -> [r,g,b]))
@@ -82,20 +86,32 @@ main = do
     -- print h_flip
 
     let chunks = chunksOf 720 pixels
-    let h_flip = map reverse chunks
-    -- let ff = concat h_flip
-    -- print ff
-    let cc = concat h_flip
-    let ss = map showPixel cc
-    let final_string = concat ss
-    let ff = start_2 ++ final_string
-    writeFile "result/horizontal_cake.ppm" ff
 
-    let v_flip = reverse chunks
-    let v_cc = concat v_flip
-    let v_ss = map showPixel v_cc
-    let v_final_string = concat v_ss
-    let v_ff = start_2 ++ v_final_string
-    writeFile "result/vertical_cake.ppm" v_ff
+    -- --horizontal flip
+    -- let h_flip = map reverse chunks
+    -- let cc = concat h_flip
+    -- let ss = map showPixel cc
+    -- let final_string = concat ss
+    -- let ff = start_2 ++ final_string
+    -- writeFile "result/horizontal_cake.ppm" ff
+
+    -- --vertical flip
+    -- let v_flip = reverse chunks
+    -- let v_cc = concat v_flip
+    -- let v_ss = map showPixel v_cc
+    -- let v_final_string = concat v_ss
+    -- let v_ff = start_2 ++ v_final_string
+    -- writeFile "result/vertical_cake.ppm" v_ff
     
+    --greyScale
+    let grey = map greyScale pixels
+    --print pixels
+    --print grey
+
+    --let g_cc = concat grey
+    let g_ss = map showPixel grey
+    let g_final_string = concat g_ss
+    let g_ff = start_2 ++ g_final_string
+    --print g_ff
+    writeFile "result/grey_cake.ppm" g_ff
 
