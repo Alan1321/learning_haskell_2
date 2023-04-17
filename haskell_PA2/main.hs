@@ -2,7 +2,7 @@
 --sudo apt-get update
 --sudo apt-get install haskell-platform -y
 --ppm_test_file(http://nifty.stanford.edu/2012/guerin-image-editor/)
-
+--ghc horizontal.hs && ./horizontal && cp result/horizontal_cake.txt /mnt/c/Users/alans/Desktop/horizontal_cake.ppm
 import System.IO
 import Data.List
 import Data.List.Split
