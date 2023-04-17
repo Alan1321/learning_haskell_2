@@ -108,23 +108,23 @@ main = do
     let new_list = divvy 6 6 rest_ints
     print new_list
 
-    -- -- Now add 3 to each 3rd element of the inner lists
-    -- let new_list2 = map addThree new_list
-    -- print new_list2
+    -- Now add 3 to each 3rd element of the inner lists
+    let new_list2 = map addThree new_list
+    print new_list2
 
-    -- -- Average the values in each sublist using integer division (want int result)
-    -- -- Have to use div function instead of / for integer division.
-    -- let averages = let sums = map sum new_list
-    --                in map (`div` 8) sums
-    -- print averages
+    -- Average the values in each sublist using integer division (want int result)
+    -- Have to use div function instead of / for integer division.
+    let averages = let sums = map sum new_list
+                   in map (`div` 8) sums
+    print averages
 
-    -- -- A shorter way to do the above. Always choose the methods that make sense to you.
-    -- let test = map ((`div` 8) . sum) new_list
-    -- print test
+    -- A shorter way to do the above. Always choose the methods that make sense to you.
+    let test = map ((`div` 8) . sum) new_list
+    print test
 
-    -- -- Let's take new_list, convert back to strings, flatten it, and write it to an output file
-    -- let back_to_strings = let strs = map (map show) new_list2
-    --                       in unlines (map unwords strs)
-    -- writeFile "example_new.txt" back_to_strings
+    -- Let's take new_list, convert back to strings, flatten it, and write it to an output file
+    let back_to_strings = let strs = map (map show) new_list2
+                          in unlines (map unwords strs)
+    writeFile "example_new.txt" back_to_strings
 
 
