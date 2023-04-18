@@ -2,6 +2,7 @@ import System.IO
 import Data.List
 import Data.List.Split
 
+
 -- RGB : (r, g, b)
 type Pixel = (Int, Int, Int)
 
@@ -38,6 +39,37 @@ greyScale (r, g, b) = ((r+g+b) `div` 3, (r+g+b) `div` 3, (r+g+b) `div` 3)
 invert :: Pixel -> Pixel
 invert (r,g,b) = (255-r, 255-g, 255-b)
 
+flatRed :: Pixel -> Pixel
+flatRed (r, g, b) = (0,g,b)
+
+flatGreen :: Pixel -> Pixel
+flatGreen (r, g, b) = (r,0,b)
+
+flatBlue :: Pixel -> Pixel
+flatBlue (r, g, b) = (r,g,0)
+
+-- --averageRed :: [[(Int, Int, Int)]] -> [[(Int, Int, Int)]]
+-- averageRed = map (map blur)
+
+-- blur :: (Int, Int, Int) -> (Int, Int, Int) -> (Int, Int, Int) -> [(Int, Int, Int),(Int, Int, Int),(Int, Int, Int)]
+blur [(r1, g1, b1),(r2, g2, b2),(r3, g3, b3)] = [(avg r1 r2 r3, g1, b1),(avg r1 r2 r3, g2, b2),(avg r1 r2 r3, g3, b3)] ++ blurred_list
+
+avg :: Int -> Int -> Int -> Int
+avg x y z = (x + y + z) `div` 3
+
+
+-- -- Function to calculate the average RGB tuple of three consecutive tuples
+-- averageRGB :: [(Int, Int, Int)] -> (Int, Int, Int)
+-- averageRGB [(r1, g1, b1), (r2, g2, b2), (r3, g3, b3)] =
+--   (div (r1+r2+r3) 3, div (g1+g2+g3) 3, div (b1+b2+b3) 3)
+
+
+-- -- Function to perform horizontal blur on a list of lists of RGB tuples
+-- horizontalBlur :: [[(Int, Int, Int)]] -> [[(Int, Int, Int)]]
+-- horizontalBlur = map (map averageRGB) . map (chunksOf 3) . map concat
+--   where chunksOf _ [] = []
+--         chunksOf n xs = take n xs : chunksOf n (drop n xs)
+
 -- --converting list of list of tuples to a single list
 -- output :: [(Int, Int, Int)] -> 
 -- output = concatMap (toList . fmap (\(r,g,b) -> [r,g,b]))
@@ -51,9 +83,11 @@ toInt :: [String] -> [Int]
 toInt [] = []
 toInt (h:t) = [read h] ++ toInt t
 
+blurred_list = [1,2,3]
+
 main = do
     -- read a text file - retuns a string
-    let input_file = "test/cake.txt"
+    let input_file = "test/test2.txt"
     input <- readFile input_file
     --print input
 
@@ -113,10 +147,39 @@ main = do
     -- let g_ff = start_2 ++ g_final_string
     -- writeFile "result/grey_cake.ppm" g_ff
 
-    --invert colors
-    let inverted = map invert pixels
-    let i_ss = map showPixel inverted
-    let i_final_string = concat i_ss
-    let i_ff = start_2 ++ i_final_string
-    writeFile "result/invert_cake.ppm" i_ff
+    -- --invert colors
+    -- let inverted = map invert pixels
+    -- let i_ss = map showPixel inverted
+    -- let i_final_string = concat i_ss
+    -- let i_ff = start_2 ++ i_final_string
+    -- writeFile "result/invert_cake.ppm" i_ff
 
+    -- --flatten red
+    -- let flat_red = map flatRed pixels
+    -- let fr_ss = map showPixel flat_red
+    -- let fr_final_string = concat fr_ss
+    -- let fr_ff = start_2 ++ fr_final_string
+    -- writeFile "result/flat_red_cake.ppm" fr_ff
+
+    -- --flatten green
+    -- let flat_green = map flatGreen pixels
+    -- let fg_ss = map showPixel flat_green
+    -- let fg_final_string = concat fg_ss
+    -- let fg_ff = start_2 ++ fg_final_string
+    -- writeFile "result/flat_green_cake.ppm" fg_ff
+
+    -- --flatten blue
+    -- let flat_blue = map flatBlue pixels
+    -- let fb_ss = map showPixel flat_blue
+    -- let fb_final_string = concat fb_ss
+    -- let fb_ff = start_2 ++ fb_final_string
+    -- writeFile "result/flat_blue_cake.ppm" fb_ff
+
+    ----------------------------------------------------------
+    -- let chunk3 = chunksOf 3 pixels
+    -- print chunk3
+
+    -- --let blurred = map blur chunk3
+    -- print blurred_list
+
+    print pixels
